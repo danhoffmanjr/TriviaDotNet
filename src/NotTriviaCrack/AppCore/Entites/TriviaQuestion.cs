@@ -5,7 +5,7 @@ namespace AppCore.Entites
 {
     public class TriviaQuestion
     {
-        public int QuestionId { get; set; }
+        public int Id { get; set; }
         public string Question { get; set; }
         public string Category { get; set; }
         public string User { get; set; }
