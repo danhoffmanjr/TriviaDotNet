@@ -1,7 +1,7 @@
 ﻿using AppCore.Entites;
 using Microsoft.EntityFrameworkCore;
 
-namespace NotTriviaCrack.Data
+namespace Infrastructure
 {
     public class NotTriviaCrackContext : DbContext
     {

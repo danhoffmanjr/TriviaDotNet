@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using NotTriviaCrack.Data;
 using NotTriviaCrack.Models;
 using NotTriviaCrack.Services;
+using Infrastructure;
+using AppCore.Interfaces;
 
 namespace NotTriviaCrack
 {
@@ -38,6 +40,8 @@ namespace NotTriviaCrack
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddScoped<ITriviaRepository, TriviaRepository>();
 
             services.AddMvc();
         }
