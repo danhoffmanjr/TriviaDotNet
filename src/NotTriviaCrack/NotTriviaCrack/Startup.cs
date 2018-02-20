@@ -43,6 +43,11 @@ namespace NotTriviaCrack
 
             services.AddScoped<ITriviaRepository, TriviaRepositoryEF>();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireClaim("Administrator"));
+            });
+
             services.AddMvc();
         }
 

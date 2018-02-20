@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AppCore.Entites;
 using AppCore.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace NotTriviaCrack.Controllers
 {
+    [Authorize(Policy = "AdminOnly")]
     public class AdminController : Controller
     {
         private readonly ITriviaRepository _triviaRepository;
