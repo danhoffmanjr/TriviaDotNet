@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Infrastructure
 {
@@ -38,12 +39,16 @@ namespace Infrastructure
 
         public TriviaQuestion GetById(int id)
         {
-            return _dbContext.Questions.Find(id);
+            TriviaQuestion question = _dbContext.Questions
+                .Include(q => q.Answers).FirstOrDefault(q => q.Id == id);
+
+            return question;
         }
 
         public void Update(TriviaQuestion updatedQuestion)
         {
-            throw new NotImplementedException();
+            _dbContext.Questions.Update(updatedQuestion);
+            _dbContext.SaveChanges();
         }
     }
 }

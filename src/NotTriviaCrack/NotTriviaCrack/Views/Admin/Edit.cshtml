@@ -1,0 +1,73 @@
+﻿@model AppCore.Entites.TriviaQuestion
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>TriviaQuestion</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question" class="control-label"></label>
+                <input asp-for="Question" class="form-control" />
+                <span asp-validation-for="Question" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User" class="control-label"></label>
+                <input asp-for="User" class="form-control" />
+                <span asp-validation-for="User" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateCreate" class="control-label"></label>
+                <input asp-for="DateCreate" class="form-control" />
+                <span asp-validation-for="DateCreate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateUpdate" class="control-label"></label>
+                <input asp-for="DateUpdate" class="form-control" />
+                <span asp-validation-for="DateUpdate" class="text-danger"></span>
+            </div>
+            @for (var i = 0; i < Model.Answers.Count; i++)
+    {
+
+        <input asp-for="@Model.Answers[i].Id" class="form-control" type="hidden" />
+        <div class="form-group">
+            <label asp-for="@Model.Answers[i].AnswerOpt" class="control-label"></label>
+            <input asp-for="@Model.Answers[i].AnswerOpt" class="form-control" />
+            <span asp-validation-for="@Model.Answers[i].AnswerOpt" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Answers[i].IsCorrect" class="control-label"></label>
+            <input asp-for="@Model.Answers[i].IsCorrect" class="form-control" />
+            <span asp-validation-for="@Model.Answers[i].IsCorrect" class="text-danger"></span>
+        </div>
+}
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

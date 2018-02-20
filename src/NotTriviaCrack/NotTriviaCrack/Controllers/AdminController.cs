@@ -28,7 +28,7 @@ namespace NotTriviaCrack.Controllers
         // GET: Admin/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_triviaRepository.GetById(id));
         }
 
         // GET: Admin/Create
@@ -68,23 +68,23 @@ namespace NotTriviaCrack.Controllers
         // GET: Admin/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(_triviaRepository.GetById(id));
         }
 
         // POST: Admin/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(TriviaQuestion updatedQuestion, IFormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+                _triviaRepository.Update(updatedQuestion);
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(updatedQuestion);
             }
         }
 
