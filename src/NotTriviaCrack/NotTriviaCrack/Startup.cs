@@ -41,7 +41,7 @@ namespace NotTriviaCrack
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddScoped<ITriviaRepository, TriviaRepository>();
+            services.AddScoped<ITriviaRepository, TriviaRepositoryEF>();
 
             services.AddMvc();
         }

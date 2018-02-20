@@ -11,6 +11,6 @@ namespace AppCore.Interfaces
         TriviaQuestion GetById(int id);
         void Add(TriviaQuestion newQuestion);
         void Update(TriviaQuestion updatedQuestion);
-        void Delete(int id);
+        void Delete(TriviaQuestion deleteQuestion);
     }
 }

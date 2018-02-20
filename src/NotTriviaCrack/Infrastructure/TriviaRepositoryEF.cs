@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    public class TriviaRepository : ITriviaRepository
+    public class TriviaRepositoryEF : ITriviaRepository
     {
         private readonly NotTriviaCrackContext _dbContext;
 
-        public TriviaRepository(NotTriviaCrackContext dbContext)
+        public TriviaRepositoryEF(NotTriviaCrackContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -30,14 +30,15 @@ namespace Infrastructure
             _dbContext.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(TriviaQuestion toDelete)
         {
-            throw new NotImplementedException();
+            _dbContext.Questions.Remove(toDelete);
+            _dbContext.SaveChanges();
         }
 
         public TriviaQuestion GetById(int id)
         {
-            throw new NotImplementedException();
+            return _dbContext.Questions.Find(id);
         }
 
         public void Update(TriviaQuestion updatedQuestion)

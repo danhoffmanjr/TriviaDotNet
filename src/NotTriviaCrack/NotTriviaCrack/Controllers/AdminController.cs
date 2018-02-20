@@ -9,44 +9,46 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace NotTriviaCrack.Controllers
 {
-    public class TriviaController : Controller
+    public class AdminController : Controller
     {
         private readonly ITriviaRepository _triviaRepository;
 
-        public TriviaController(ITriviaRepository triviaRepository)
+        public AdminController(ITriviaRepository triviaRepository)
         {
             _triviaRepository = triviaRepository;
         }
         
         
-        // GET: Trivia
+        // GET: Admin
         public ActionResult Index()
         {
             return View(_triviaRepository.ListAll());
         }
 
-        // GET: Trivia/Details/5
+        // GET: Admin/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Trivia/Create
+        // GET: Admin/Create
         public ActionResult Create()
         {
-            TriviaQuestion newQuestion = new TriviaQuestion();
-            newQuestion.Answers = new List<TriviaAnswer>
+            TriviaQuestion newQuestion = new TriviaQuestion
             {
-                new TriviaAnswer(),
-                new TriviaAnswer(),
-                new TriviaAnswer(),
-                new TriviaAnswer()
+                Answers = new List<TriviaAnswer>
+                {
+                    new TriviaAnswer(),
+                    new TriviaAnswer(),
+                    new TriviaAnswer(),
+                    new TriviaAnswer()
+                }
             };
 
             return View(newQuestion);
         }
 
-        // POST: Trivia/Create
+        // POST: Admin/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(TriviaQuestion newQuestion, IFormCollection collection)
@@ -63,13 +65,13 @@ namespace NotTriviaCrack.Controllers
             }
         }
 
-        // GET: Trivia/Edit/5
+        // GET: Admin/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Trivia/Edit/5
+        // POST: Admin/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -86,26 +88,26 @@ namespace NotTriviaCrack.Controllers
             }
         }
 
-        // GET: Trivia/Delete/5
+        // GET: Admin/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(_triviaRepository.GetById(id));
         }
 
-        // POST: Trivia/Delete/5
+        // POST: Admin/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(TriviaQuestion toDelete, IFormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                _triviaRepository.Delete(toDelete);
 
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(toDelete);
             }
         }
     }
