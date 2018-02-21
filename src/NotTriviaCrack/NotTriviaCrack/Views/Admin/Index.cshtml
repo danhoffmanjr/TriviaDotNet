@@ -4,66 +4,55 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Questions &amp; Answers</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Question)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Category)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.User)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateCreate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateUpdate)
-                </th>
-            <th>Number of Answer</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCreate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateUpdate)
-            </td>
-            <td>
-                @item.Answers?.Count
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
+<section class="questions-header">
+    <div>Details</div>
+    <div>Question</div>
+    <div>Category</div>
+</section>
+        @foreach (var item in Model)
+    {
+<section class="question">
+    <p><a href="javascript:void" id="btn-details-@item.Id" data-id="@item.Id" class="toggle-details">Show Details</a></p>
+    <p>@Html.DisplayFor(modelItem => item.Question)</p>
+    <p>@Html.DisplayFor(modelItem => item.Category)</p>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+    </p>
+</section>
+<section id="details-@item.Id" class="details">
+    <p><strong>ID:</strong> @Html.DisplayFor(modelItem => item.Id)</p>
+    <p><strong>User:</strong> @Html.DisplayFor(modelItem => item.User)</p>
+    <p><strong>Created:</strong> @Html.DisplayFor(modelItem => item.DateCreate)</p>
+    <p><strong>Updated:</strong> @Html.DisplayFor(modelItem => item.DateUpdate)</p>
+    <p>
+        @if (item.Answers[0].IsCorrect == true)
+    {@Html.DisplayFor(modelItem => item.Answers[0].IsCorrect)}
+
+        @Html.DisplayFor(modelItem => item.Answers[0].AnswerOpt)
+    </p>
+    <p>
+        @if (item.Answers[1].IsCorrect == true)
+    {@Html.DisplayFor(modelItem => item.Answers[1].IsCorrect)}
+
+        @Html.DisplayFor(modelItem => item.Answers[1].AnswerOpt)
+    </p>
+    <p>
+        @if (item.Answers[2].IsCorrect == true)
+    {@Html.DisplayFor(modelItem => item.Answers[2].IsCorrect)}
+
+        @Html.DisplayFor(modelItem => item.Answers[2].AnswerOpt)
+    </p>
+    <p>
+        @if (item.Answers[3].IsCorrect == true)
+    {@Html.DisplayFor(modelItem => item.Answers[3].IsCorrect)}
+
+        @Html.DisplayFor(modelItem => item.Answers[3].AnswerOpt)
+    </p>
+</section> 
 }
-    </tbody>
-</table>
