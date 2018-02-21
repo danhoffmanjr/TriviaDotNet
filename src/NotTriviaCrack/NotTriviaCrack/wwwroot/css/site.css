@@ -34,6 +34,82 @@
     }
 }
 
-.details {
+/* Admin Index - styles for Question and Answers list */
+.admin-questions-header {
+    display: flex;
+    border-bottom: 2px solid #949494;
+}
+
+.admin-question {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-details {
+    display: flex;
+    padding: 0 10px 5px 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: #ddd;
+}
+
+.admin-questions-header > .col-details, .admin-question > .col-details {
+    margin: 0;
+    padding: 5px;
+    flex-basis: 10%;
+}
+
+.admin-questions-header > .col-question, .admin-question > .col-question {
+    margin: 0;
+    padding: 5px;
+    flex-basis: 70%;
+}
+
+.admin-questions-header > .col-category, .admin-question > .col-category {
+    margin: 0;
+    padding: 5px;
+    flex-basis: 10%;
+}
+
+.admin-questions-header > .col-actions, .admin-question > .col-actions {
+    margin: 0;
+    padding: 5px;
+    flex-basis: 10%;
+}
+
+.admin-details > .details-other {
+    flex-basis: 35%;
+}
+
+.admin-details > .details-other > p {
+    margin: 10px 0;
+    padding: 5px;
+    background-color: #eee;
+}
+
+.admin-details > .details-answers {
+    flex-basis: 65%;
+}
+
+.admin-details ol, .admin-details ul {
+    margin: 10px;
+    padding: 0;
+    list-style: none;
+}
+
+.admin-details ol li, .admin-details ul li {
+    margin: 10px 0;
+    padding: 5px;
+    background-color: #eee;
+}
+
+.admin-details ol li i {
+    display: inline-block;
+    padding: 5px;
+}
+
+.fa-check-circle {color: green;}
+.fa-circle {color: #ddd;}
+
+.admin-details-display {
     display: none;
 }

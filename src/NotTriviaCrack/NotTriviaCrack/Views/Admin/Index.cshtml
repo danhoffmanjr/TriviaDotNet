@@ -9,50 +9,61 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<section class="questions-header">
-    <div>Details</div>
-    <div>Question</div>
-    <div>Category</div>
+<section class="admin-questions-header">
+    <p class="col-details"><strong>Details</strong></p>
+    <p class="col-question"><strong>Question</strong></p>
+    <p class="col-category"><strong>Category</strong></p>
+    <p class="col-actions"><strong>Actions</strong></p>
 </section>
         @foreach (var item in Model)
     {
-<section class="question">
-    <p><a href="javascript:void" id="btn-details-@item.Id" data-id="@item.Id" class="toggle-details">Show Details</a></p>
-    <p>@Html.DisplayFor(modelItem => item.Question)</p>
-    <p>@Html.DisplayFor(modelItem => item.Category)</p>
-    <p>
+<section class="admin-question">
+    <p class="col-details"><a href="javascript:void" id="btn-details-@item.Id" data-id="@item.Id" class="toggle-details">Show Details</a></p>
+    <p class="col-question">@Html.DisplayFor(modelItem => item.Question)</p>
+    <p class="col-category">@Html.DisplayFor(modelItem => item.Category)</p>
+    <p class="col-actions">
         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
         @Html.ActionLink("Delete", "Delete", new { id = item.Id })
     </p>
 </section>
-<section id="details-@item.Id" class="details">
-    <p><strong>ID:</strong> @Html.DisplayFor(modelItem => item.Id)</p>
-    <p><strong>User:</strong> @Html.DisplayFor(modelItem => item.User)</p>
-    <p><strong>Created:</strong> @Html.DisplayFor(modelItem => item.DateCreate)</p>
-    <p><strong>Updated:</strong> @Html.DisplayFor(modelItem => item.DateUpdate)</p>
-    <p>
-        @if (item.Answers[0].IsCorrect == true)
-    {@Html.DisplayFor(modelItem => item.Answers[0].IsCorrect)}
+<section id="details-@item.Id" class="admin-details-display">
+    <div class="admin-details">
+        <div class="details-other">
+            <ul>Data Details: 
+                <li><strong>ID:</strong> @Html.DisplayFor(modelItem => item.Id)</li>
+                <li><strong>User:</strong> @Html.DisplayFor(modelItem => item.User)</li>
+                <li><strong>Created:</strong> @Html.DisplayFor(modelItem => item.DateCreate)</li>
+                <li><strong>Updated:</strong> @Html.DisplayFor(modelItem => item.DateUpdate)</li>
+            </ul>
+        </div>
+        <div class="details-answers">
+            <ol>Answers:
+                <li>
+                    @if (item.Answers[0].IsCorrect == true) {<i class="fas fa-check-circle"></i>}
+                    else {<i class="far fa-circle"></i>}
 
-        @Html.DisplayFor(modelItem => item.Answers[0].AnswerOpt)
-    </p>
-    <p>
-        @if (item.Answers[1].IsCorrect == true)
-    {@Html.DisplayFor(modelItem => item.Answers[1].IsCorrect)}
+                    @Html.DisplayFor(modelItem => item.Answers[0].AnswerOpt)
+                </li>
+                <li>
+                    @if (item.Answers[1].IsCorrect == true) {<i class="fas fa-check-circle"></i>}
+                    else {<i class="far fa-circle"></i>}
 
-        @Html.DisplayFor(modelItem => item.Answers[1].AnswerOpt)
-    </p>
-    <p>
-        @if (item.Answers[2].IsCorrect == true)
-    {@Html.DisplayFor(modelItem => item.Answers[2].IsCorrect)}
+                    @Html.DisplayFor(modelItem => item.Answers[1].AnswerOpt)
+                </li>
+                <li>
+                    @if (item.Answers[2].IsCorrect == true) {<i class="fas fa-check-circle"></i>}
+                    else {<i class="far fa-circle"></i>}
 
-        @Html.DisplayFor(modelItem => item.Answers[2].AnswerOpt)
-    </p>
-    <p>
-        @if (item.Answers[3].IsCorrect == true)
-    {@Html.DisplayFor(modelItem => item.Answers[3].IsCorrect)}
+                    @Html.DisplayFor(modelItem => item.Answers[2].AnswerOpt)
+                </li>
+                <li>
+                    @if (item.Answers[3].IsCorrect == true) {<i class="fas fa-check-circle"></i>}
+                    else {<i class="far fa-circle"></i>}
 
-        @Html.DisplayFor(modelItem => item.Answers[3].AnswerOpt)
-    </p>
+                    @Html.DisplayFor(modelItem => item.Answers[3].AnswerOpt)
+                </li>
+            </ol>
+        </div>
+    </div>
 </section> 
 }
