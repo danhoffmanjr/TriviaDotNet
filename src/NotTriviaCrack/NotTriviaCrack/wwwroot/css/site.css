@@ -45,6 +45,21 @@
     border-bottom: 1px solid #ddd;
 }
 
+.admin-question-active {
+    display: flex;
+    font-weight: bold;
+    border-top: 1px solid #fff;
+    background-color: #ddd;
+}
+
+.admin-question:hover {
+    background-color: lemonchiffon;
+}
+
+.admin-question-active:hover {
+    background-color: #ddd;
+}
+
 .admin-details {
     display: flex;
     padding: 0 10px 5px 10px;

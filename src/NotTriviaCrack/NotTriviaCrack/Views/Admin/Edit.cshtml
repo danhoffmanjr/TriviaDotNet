@@ -1,22 +1,19 @@
 ﻿@model AppCore.Entites.TriviaQuestion
+@using Microsoft.AspNetCore.Identity
 
 @{
     ViewData["Title"] = "Edit";
 }
-
+@inject UserManager<ApplicationUser> UserManager
 <h2>Edit</h2>
 
-<h4>TriviaQuestion</h4>
+<h4>Trivia Question &amp; Answers</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
+            <input asp-for="Id" class="form-control" type="hidden" />
             <div class="form-group">
                 <label asp-for="Question" class="control-label"></label>
                 <input asp-for="Question" class="form-control" />
@@ -24,39 +21,35 @@
             </div>
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
+                <select asp-for="Category" class="form-control">
+                    <option name="select" value="select" disabled>Select Category:</option>
+                    <option name="Art" value="Art">Art</option>
+                    <option name="Entertainment" value="Entertainment">Entertainment</option>
+                    <option name="Geography" value="Geography">Geography</option>
+                    <option name="History" value="History">History</option>
+                    <option name="Science" value="Science">Science</option>
+                    <option name="Sports" value="Sports">Sports</option>
+                </select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="User" class="control-label"></label>
-                <input asp-for="User" class="form-control" />
-                <span asp-validation-for="User" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateCreate" class="control-label"></label>
-                <input asp-for="DateCreate" class="form-control" />
-                <span asp-validation-for="DateCreate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateUpdate" class="control-label"></label>
-                <input asp-for="DateUpdate" class="form-control" />
-                <span asp-validation-for="DateUpdate" class="text-danger"></span>
-            </div>
+            <input asp-for="User" value="@UserManager.GetUserName(User).ToString()" class="form-control" type="hidden" />
+            <input asp-for="DateCreate" class="form-control" type="hidden" />
+            <input asp-for="DateUpdate" value="@DateTime.Now" class="form-control" type="hidden" />
             @for (var i = 0; i < Model.Answers.Count; i++)
-    {
+            {
 
-        <input asp-for="@Model.Answers[i].Id" class="form-control" type="hidden" />
-        <div class="form-group">
-            <label asp-for="@Model.Answers[i].AnswerOpt" class="control-label"></label>
-            <input asp-for="@Model.Answers[i].AnswerOpt" class="form-control" />
-            <span asp-validation-for="@Model.Answers[i].AnswerOpt" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.Answers[i].IsCorrect" class="control-label"></label>
-            <input asp-for="@Model.Answers[i].IsCorrect" class="form-control" />
-            <span asp-validation-for="@Model.Answers[i].IsCorrect" class="text-danger"></span>
-        </div>
-}
+                <input asp-for="@Model.Answers[i].Id" class="form-control" type="hidden" />
+                <div class="form-group col-md-10">
+                    <label asp-for="@Model.Answers[i].AnswerOpt" class="control-label">Answer Option @(i+1)</label>
+                    <input asp-for="@Model.Answers[i].AnswerOpt" class="form-control" />
+                    <span asp-validation-for="@Model.Answers[i].AnswerOpt" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label asp-for="@Model.Answers[i].IsCorrect" class="control-label"></label>
+                    <input asp-for="@Model.Answers[i].IsCorrect" class="form-control" />
+                    <span asp-validation-for="@Model.Answers[i].IsCorrect" class="text-danger"></span>
+                </div>
+            }
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

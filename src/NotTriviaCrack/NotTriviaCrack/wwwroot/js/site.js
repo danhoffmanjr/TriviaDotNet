@@ -18,6 +18,7 @@
     $(".toggle-details").on("click", function () {
         var txt = $(this).text() == 'Show Details' ? 'Hide Details' : 'Show Details';
         $(this).text(txt);
+        $(this).parent().parent().toggleClass("admin-question-active");
         toggleDetails($(this).data('id'));
     });
 });
