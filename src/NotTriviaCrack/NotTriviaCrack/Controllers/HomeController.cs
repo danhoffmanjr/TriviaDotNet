@@ -15,7 +15,7 @@ namespace NotTriviaCrack.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Play()
         {
             ViewData["Message"] = "Your application description page.";
 

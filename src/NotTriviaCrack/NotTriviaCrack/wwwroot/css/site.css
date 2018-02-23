@@ -76,13 +76,17 @@
 .admin-questions-header > .col-question, .admin-question > .col-question {
     margin: 0;
     padding: 5px;
-    flex-basis: 70%;
+    flex-basis: 68%;
 }
 
 .admin-questions-header > .col-category, .admin-question > .col-category {
     margin: 0;
     padding: 5px;
-    flex-basis: 10%;
+    flex-basis: 12%;
+}
+
+.admin-questions-header > .col-category {
+    padding: 5px 5px 5px 0;
 }
 
 .admin-questions-header > .col-actions, .admin-question > .col-actions {
@@ -127,4 +131,31 @@
 
 .admin-details-display {
     display: none;
+}
+
+/* game interface */
+.game-ui {
+    margin: 20px;
+    position: relative;
+    background: white url(../images/grass-landscape-3.png) no-repeat;
+    background-size: cover;
+    border-radius: 30px;
+    min-height: 80vh;
+}
+
+.spin-icon {
+    width: 102px;
+    height: 120px;
+    background: transparent url(../images/spin.png) no-repeat;
+    background-size: cover;
+    border: none;
+    position: absolute;
+    left: 189px;
+    top: 173px;
+}
+
+#canvas {
+    margin: 20px;
+    width: 440px;
+    height: 440px;
 }

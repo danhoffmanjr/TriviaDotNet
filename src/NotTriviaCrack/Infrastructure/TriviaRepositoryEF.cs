@@ -21,7 +21,16 @@ namespace Infrastructure
         public List<TriviaQuestion> ListAll()
         {
             return _dbContext.Questions
+                 .Include(q => q.Answers)
+                 .OrderBy(q => q.Category)
+                 .ToList();
+        }
+
+        public List<TriviaQuestion> ListByCategory(string category)
+        {
+            return _dbContext.Questions
                 .Include(q => q.Answers)
+                .Where(q => q.Category == category)
                 .ToList();
         }
 

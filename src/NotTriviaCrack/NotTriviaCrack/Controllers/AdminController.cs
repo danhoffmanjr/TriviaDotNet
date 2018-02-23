@@ -18,13 +18,16 @@ namespace NotTriviaCrack.Controllers
         public AdminController(ITriviaRepository triviaRepository)
         {
             _triviaRepository = triviaRepository;
-        }
-        
+        }    
         
         // GET: Admin
-        public ActionResult Index()
+        public ActionResult Index(string category)
         {
-            return View(_triviaRepository.ListAll());
+            if (category == null)
+            {
+                return View(_triviaRepository.ListAll());
+            }
+            return View(_triviaRepository.ListByCategory(category));
         }
 
         // GET: Admin/Details/5

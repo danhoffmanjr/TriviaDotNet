@@ -1,4 +1,6 @@
-﻿$( function() {
+﻿"Use Strict";
+// jQuery to toggle details view on Admin list page (Admin/index.cshtml)
+$(function () {
     function toggleDetails(id) {
         // get effect type from
         var selectedEffect = $("#effectTypes").val();
@@ -22,3 +24,24 @@
         toggleDetails($(this).data('id'));
     });
 });
+
+// filter by category
+(function () {
+    var httpRequest,
+        baseURL = "http://localhost:51912/Admin",
+        category = document.getElementById("admin-category-select"),
+        getByCategoryURI = "?category=",
+        method = {
+            post: 'POST',
+            get: 'GET'
+        };
+
+    category.addEventListener('change', function () {
+        var category = this.value;
+        if (category == "All") {
+            window.location.href = baseURL;
+            return;
+        }
+        window.location.href = baseURL + getByCategoryURI + category;
+    });
+})();

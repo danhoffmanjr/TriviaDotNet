@@ -4,6 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
+@section Scripts{<script src="~/js/site.min.js" asp-append-version="true"></script>}
+
 <h2>Questions &amp; Answers</h2>
 
 <p>
@@ -12,7 +14,19 @@
 <section class="admin-questions-header">
     <p class="col-details"><strong>Details</strong></p>
     <p class="col-question"><strong>Question</strong></p>
-    <p class="col-category"><strong>Category</strong></p>
+    <p class="col-category"><strong>
+    <label for="category"></label>
+    <select for="category" id="admin-category-select">
+        <option name="select" value="select">Category:</option>
+        <option name="List All" value="All">Show All</option>
+        <option name="Art" value="Art">Art</option>
+        <option name="Entertainment" value="Entertainment">Entertainment</option>
+        <option name="Geography" value="Geography">Geography</option>
+        <option name="History" value="History">History</option>
+        <option name="Science" value="Science">Science</option>
+        <option name="Sports" value="Sports">Sports</option>
+    </select>
+    </strong></p>
     <p class="col-actions"><strong>Actions</strong></p>
 </section>
         @foreach (var item in Model)
