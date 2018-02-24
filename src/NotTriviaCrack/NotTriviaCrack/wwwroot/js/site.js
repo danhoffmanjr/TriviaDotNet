@@ -25,7 +25,7 @@ $(function () {
     });
 });
 
-// filter by category
+// [Admin] filter by category
 (function () {
     var httpRequest,
         baseURL = "http://localhost:51912/Admin",

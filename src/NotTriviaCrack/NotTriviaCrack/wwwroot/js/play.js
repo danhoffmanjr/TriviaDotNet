@@ -1,4 +1,12 @@
-﻿$(function () {
+﻿(function () {
+    var httpRequest,
+        apiKey = '064fa487e5692b71cd7d4bd13fc74a30',
+        baseURL = "http://localhost:51912",
+        method = {
+            post: 'POST',
+            get: 'GET'
+        };
+
     var theWheel = new Winwheel({
         'outerRadius': 220,        // Set outer radius so wheel fits inside the background.
         'innerRadius': 44,         // Make wheel hollow so segments dont go all way to center.
@@ -56,6 +64,31 @@
         }
         var output = document.getElementById("spin-result");
         output.innerHTML = "<h2>" + indicatedSegment.text + "!</h2>";
+        getQuestions('GET', baseURL + '/api/list');
         resetWheel();
+    }
+
+    function getQuestions(method, uri) {
+        httpRequest = new XMLHttpRequest();
+        if (!httpRequest) {
+            console.log('ERROR getting questions: Cannot create an XMLHTTP instance.');
+            return false;
+        }
+        httpRequest.open(method, uri);
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                if (httpRequest.status === 200) {
+                    httpRequest.onload = function () {
+                        var details = JSON.parse(httpRequest.responseText);
+                        //renderDetails(details);
+                        console.log("List of Questions:");
+                        console.log(details);
+                    }
+                } else {
+                    console.log('[getQuestions] There was a problem with the request.');
+                }
+            }
+        };
+        httpRequest.send();
     }
 })();

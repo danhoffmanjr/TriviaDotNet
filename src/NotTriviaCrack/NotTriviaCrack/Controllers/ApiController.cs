@@ -2,28 +2,62 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AppCore.Entites;
+using AppCore.Interfaces;
+using Infrastructure;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace NotTriviaCrack.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Api")]
+    [Route("api/list")]
     public class ApiController : Controller
     {
-        // GET: api/Api
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly NotTriviaCrackContext _dbContext;
+
+        public ApiController(NotTriviaCrackContext dbContext)
         {
-            return new string[] { "value1", "value2" };
+            _dbContext = dbContext;
         }
 
-        // GET: api/Api/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        //private readonly ITriviaRepository _triviaRepository;
+
+        //public ApiController(ITriviaRepository triviaRepository)
+        //{
+        //    _triviaRepository = triviaRepository;
+        //}
+
+        // GET: api/list
+        [HttpGet]
+        public IEnumerable<TriviaQuestion> GetAll()
         {
-            return "value";
+            //return _triviaRepository.ListAll();
+            return _dbContext.Questions
+                .Include(q => q.Answers)
+                .OrderBy(q => q.Category)
+                .ToList();
         }
+
+        // GET: api?category={category}
+        //[HttpGet("{category}")]
+        //public IActionResult GetCategory(string category)
+        //{
+        //    var item = _triviaRepository.ListByCategory(category);
+        //    if (item == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return new ObjectResult(item);
+        //}
+
+        // GET: api/Api/5
+       // [HttpGet("{id}", Name = "Get")]
+       // public string Get(int id)
+       // {
+       //     return "value";
+       // }
         
         // POST: api/Api
         [HttpPost]
