@@ -19,7 +19,7 @@
         [
             { 'fillStyle': '#ee2a36', 'text': 'Art' },
             { 'fillStyle': '#e85aa2', 'text': 'Entertainment' },
-            { 'fillStyle': '#864fa0', 'text': 'Prize' },
+            { 'fillStyle': '#864fa0', 'text': 'Award' },
             { 'fillStyle': '#2774ba', 'text': 'Geography' },
             { 'fillStyle': '#44b968', 'text': 'Science' },
             { 'fillStyle': '#f7e042', 'text': 'History' },
@@ -40,6 +40,103 @@
         startSpin();
     });
 
+    var sampleData = [
+        {
+            "id": 1,
+            "question": "In what Shakespeare play is there a character called Mercutio?",
+            "category": "Art",
+            "user": "Admin",
+            "dateCreate": "2018-02-24T10:41:28.8098795-05:00",
+            "dateUpdate": "2018-02-24T10:41:28.8113055-05:00",
+            "answers":
+            [
+                {
+                    "id": 1,
+                    "questionId": 1,
+                    "answerOpt": "Othello",
+                    "isCorrect": false,
+                    "user": "Admin",
+                    "dateCreate": "2018-02-24T10:41:28.8450802-05:00",
+                    "dateUpdate": "2018-02-24T10:41:28.845083-05:00",
+                },
+                {
+                    "id": 2,
+                    "questionId": 1,
+                    "answerOpt": "Romeo and Juliet",
+                    "isCorrect": true,
+                    "user": "Admin",
+                    "dateCreate": "2018-02-24T10:41:28.8450802-05:00",
+                    "dateUpdate": "2018-02-24T10:41:28.845083-05:00",
+                },
+                {
+                    "id": 3,
+                    "questionId": 1,
+                    "answerOpt": "King Leer",
+                    "isCorrect": false,
+                    "user": "Admin",
+                    "dateCreate": "2018-02-24T10:41:28.8450802-05:00",
+                    "dateUpdate": "2018-02-24T10:41:28.845083-05:00",
+                },
+                {
+                    "id": 4,
+                    "questionId": 1,
+                    "answerOpt": "Cats",
+                    "isCorrect": false,
+                    "user": "Admin",
+                    "dateCreate": "2018-02-24T10:41:28.8450802-05:00",
+                    "dateUpdate": "2018-02-24T10:41:28.845083-05:00",
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "question": "What is Water?",
+            "category": "Science",
+            "user": "Admin",
+            "dateCreate": "2018-02-24T10:41:28.8450802-05:00",
+            "dateUpdate": "2018-02-24T10:41:28.845083-05:00",
+            "answers":
+            [
+                {
+                    "id": 1,
+                    "questionId": 2,
+                    "answerOpt": "Gas",
+                    "isCorrect": false,
+                    "user": "Admin",
+                    "dateCreate": "2018-02-24T10:41:28.8450802-05:00",
+                    "dateUpdate": "2018-02-24T10:41:28.845083-05:00",
+                },
+                {
+                    "id": 2,
+                    "questionId": 2,
+                    "answerOpt": "Solid",
+                    "isCorrect": false,
+                    "user": "Admin",
+                    "dateCreate": "2018-02-24T10:41:28.8450802-05:00",
+                    "dateUpdate": "2018-02-24T10:41:28.845083-05:00",
+                },
+                {
+                    "id": 3,
+                    "questionId": 2,
+                    "answerOpt": "Plasma",
+                    "isCorrect": false,
+                    "user": "Admin",
+                    "dateCreate": "2018-02-24T10:41:28.8450802-05:00",
+                    "dateUpdate": "2018-02-24T10:41:28.845083-05:00",
+                },
+                {
+                    "id": 4,
+                    "questionId": 2,
+                    "answerOpt": "Liquid",
+                    "isCorrect": true,
+                    "user": "Admin",
+                    "dateCreate": "2018-02-24T10:41:28.8450802-05:00",
+                    "dateUpdate": "2018-02-24T10:41:28.845083-05:00",
+                }
+            ]
+        }
+    ];
+
     var wheelSpinning = false;
 
     function startSpin() {
@@ -59,12 +156,15 @@
 
     // Called when the spin animation has finished.
     function getQuestionByCategory(indicatedSegment) {
-        if (indicatedSegment.text == 'Prize') {
+        if (indicatedSegment.text == 'Award') {
             // code to select category to win
         }
         var output = document.getElementById("spin-result");
         output.innerHTML = "<h2>" + indicatedSegment.text + "!</h2>";
-        getQuestions('GET', baseURL + '/api/list');
+        var questions = sampleData;
+        console.log(questions);
+        //getQuestions('GET', baseURL + '/api/default');
+        //getQuestions('GET', baseURL + '/api/list');
         resetWheel();
     }
 
@@ -74,6 +174,7 @@
             console.log('ERROR getting questions: Cannot create an XMLHTTP instance.');
             return false;
         }
+        console.log(method + " " + uri);
         httpRequest.open(method, uri);
         httpRequest.onreadystatechange = function () {
             if (httpRequest.readyState === XMLHttpRequest.DONE) {

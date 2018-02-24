@@ -15,30 +15,30 @@ namespace NotTriviaCrack.Controllers
     [Route("api/list")]
     public class ApiController : Controller
     {
-        private readonly NotTriviaCrackContext _dbContext;
+        private readonly ITriviaRepository _triviaRepository;
 
-        public ApiController(NotTriviaCrackContext dbContext)
+        public ApiController(ITriviaRepository triviaRepository)
         {
-            _dbContext = dbContext;
+            _triviaRepository = triviaRepository;
         }
-
-        //private readonly ITriviaRepository _triviaRepository;
-
-        //public ApiController(ITriviaRepository triviaRepository)
-        //{
-        //    _triviaRepository = triviaRepository;
-        //}
 
         // GET: api/list
         [HttpGet]
         public IEnumerable<TriviaQuestion> GetAll()
         {
-            //return _triviaRepository.ListAll();
-            return _dbContext.Questions
-                .Include(q => q.Answers)
-                .OrderBy(q => q.Category)
-                .ToList();
+            return _triviaRepository.ListAll();
         }
+
+        //[HttpGet]
+        //public IActionResult GetAll()
+        //{
+        //    var item = _triviaRepository.ListAll();
+        //    if (item == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return new ObjectResult(item);
+        //}
 
         // GET: api?category={category}
         //[HttpGet("{category}")]
@@ -53,12 +53,12 @@ namespace NotTriviaCrack.Controllers
         //}
 
         // GET: api/Api/5
-       // [HttpGet("{id}", Name = "Get")]
-       // public string Get(int id)
-       // {
-       //     return "value";
-       // }
-        
+        // [HttpGet("{id}", Name = "Get")]
+        // public string Get(int id)
+        // {
+        //     return "value";
+        // }
+
         // POST: api/Api
         [HttpPost]
         public void Post([FromBody]string value)

@@ -13,6 +13,7 @@ using NotTriviaCrack.Models;
 using NotTriviaCrack.Services;
 using Infrastructure;
 using AppCore.Interfaces;
+using AppCore.Entites;
 
 namespace NotTriviaCrack
 {
@@ -33,6 +34,8 @@ namespace NotTriviaCrack
 
             services.AddDbContext<NotTriviaCrackContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<QuizContext>(opt => opt.UseInMemoryDatabase("QuestionsList"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
