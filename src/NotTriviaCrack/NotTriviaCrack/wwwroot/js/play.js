@@ -11,11 +11,13 @@
         uiQuestion = document.getElementById("question-area"),
         displayCategory = document.getElementById("category"),
         displayQuestion = document.getElementById("question"),
-        answerList = document.getElementById("answers"),
-        displayAnswer1 = document.getElementById("answer-option-0"),
-        displayAnswer2 = document.getElementById("answer-option-1"),
-        displayAnswer3 = document.getElementById("answer-option-2"),
-        displayAnswer4 = document.getElementById("answer-option-3");
+        displayAnswers = document.getElementById("answers"),
+        answers = Array.from(document.querySelectorAll("#answers>p")),
+        answerValues = answers.map(function (item) { return item.innerHTML; }),
+        answer = document.getElementById("answers").addEventListener("click", checkIfCorrect),
+        answerResponse = document.getElementById("answer-response"),
+        displayAnswerResponse = document.getElementById("display-answer-response"),
+        btnContinue = document.getElementById("btn-continue");
 
     var theWheel = new Winwheel({
         'outerRadius': 220,        // Set outer radius so wheel fits inside the background.
@@ -48,26 +50,6 @@
     // Wired up event listeners
     btnSpin.addEventListener("click", function () {
         startSpin();
-    });
-    displayAnswer1.addEventListener("click", function () {
-        console.log('Answer 1 clicked');//
-        checkIfCorrect(this.textContent);
-    });
-    displayAnswer2.addEventListener("click", function () {
-        console.log('Answer 1 clicked');//
-        checkIfCorrect(this.textContent);
-    });
-    displayAnswer3.addEventListener("click", function () {
-        console.log('Answer 1 clicked');//
-        checkIfCorrect(this.textContent);
-    });
-    displayAnswer4.addEventListener("click", function () {
-        console.log('Answer 1 clicked');//
-        checkIfCorrect(this.textContent);
-    });
-    displayCategory.addEventListener("click", function () {
-        console.log('Answer 1 clicked');//
-        checkIfCorrect(this.textContent);
     });
 
     var sampleData = [
@@ -192,7 +174,6 @@
         //getQuestions('GET', baseURL + '/api/questions/' + indicatedSegment);// In-memory controller (DefaultController.cs)
         //getQuestions('GET', baseURL + '/api/sqldata/' + indicatedSegment);// SQL controller (ApiController.cs)
         renderQuestion(sampleData);// Just for testing until getQuestions query issue is resolved.
-        resetWheel();
     }
 
     function getQuestions(method, uri) {
@@ -227,12 +208,13 @@
         currentQuestion = question;
         console.log(question.id - 1);//
         console.log(question);//
+        answerResponse.style.display = "none";
         uiQuestion.style.display = "block";
         displayCategory.innerText = question.category + "!";
         displayQuestion.innerText = question.question;
-        answerList.innerHTML = "";
+        displayAnswers.innerHTML = "";
         for (var i = 0; i < question.answers.length; i++){
-            answerList.innerHTML += '<p id="answer-option-' + i + '" class="answer-option">' + question.answers[i].answerOpt + '</p>';
+            displayAnswers.innerHTML += '<p id="answer-option-' + i + '" class="answer-option">' + question.answers[i].answerOpt + '</p>';
             if (question.answers[i].isCorrect == true){
                 correctAnswer = question.answers[i].answerOpt;
             }
@@ -240,12 +222,21 @@
         console.log(correctAnswer);//
     }
 
-    function checkIfCorrect(selectedAnswer) {
-        if (selectedAnswer === correctAnswer) {
-            alert("Wow! That's Correct. I'm shocked you got that right!");
-        } else {
-            alert("Wrong Answer, Stupid!");
+    function checkIfCorrect(event) {
+        var selectedText = event.target.innerText;
+        var selectedId = document.getElementById(event.target.id);
+        var answerOptions = document.getElementsByClassName("answer-option");
+        if (selectedText === correctAnswer) {
+            selectedId.classList.add("correct");
+            answerResponse.style.display = "block";
+            displayAnswerResponse.innerText = "Correct!";
+            resetWheel();
+            return;
         }
+        selectedId.classList.add("incorrect");
+        answerResponse.style.display = "block";
+        displayAnswerResponse.innerText = "Sorry, that's incorrect";
+        resetWheel();
     }
 
     // Generate a random number

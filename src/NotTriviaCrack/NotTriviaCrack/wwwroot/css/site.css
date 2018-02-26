@@ -152,9 +152,10 @@ body {
 }
 
 .question-area {
-    display: block;
+    display: none;
     padding: 20px 40px;
     flex: 1 0 0;
+    pointer-events: none;
 }
 
 h2.category-header {
@@ -181,12 +182,33 @@ h3.question {
     font-family: 'Patua One';
     font-size: 2rem;
     border-radius: 8px;
+    pointer-events: all;
 }
 
 .question-area .answer-option:hover {
     background-color: mediumblue;
     border: 1px solid blue;
     color: #fff;
+}
+
+.question-area .correct, .question-area .correct:hover {
+    background-color: green;
+    color: #fff;
+}
+
+.question-area .incorrect, .question-area .incorrect:hover {
+    background-color: red;
+    color: #fff;
+}
+
+.answer-response {
+    display: none;
+}
+
+h2.display-answer-response {
+    font-family: 'Luckiest Guy';
+    text-align: center;
+    font-size: 4rem;
 }
 
 .spin-icon {
