@@ -1,4 +1,6 @@
-﻿body {
+﻿@import url('https://fonts.googleapis.com/css?family=Bubblegum+Sans|Luckiest+Guy|Patua+One|Shrikhand');
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -141,6 +143,50 @@
     background-size: cover;
     border-radius: 30px;
     min-height: 80vh;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.spinner {
+    flex-basis: 480px;
+}
+
+.question-area {
+    display: block;
+    padding: 20px 40px;
+    flex: 1 0 0;
+}
+
+h2.category-header {
+    font-family: 'Luckiest Guy';
+    text-align: center;
+    font-size: 4rem;
+}
+
+h3.question {
+    font-family: 'Bubblegum Sans';
+    text-align: center;
+    font-size: 3rem;
+    line-height: 4rem;
+}
+
+.question-area .answers {
+    margin: 30px 0;
+}
+
+.question-area .answer-option {
+    background-color: lightskyblue;
+    border: 1px solid blue;
+    padding: 5px 20px;
+    font-family: 'Patua One';
+    font-size: 2rem;
+    border-radius: 8px;
+}
+
+.question-area .answer-option:hover {
+    background-color: mediumblue;
+    border: 1px solid blue;
+    color: #fff;
 }
 
 .spin-icon {
@@ -152,6 +198,14 @@
     position: absolute;
     left: 189px;
     top: 173px;
+    font-family: 'Luckiest Guy';
+    text-align: center;
+    font-size: 3rem;
+    padding-top: 17px;
+}
+
+.spin-icon:hover {
+    color: green;
 }
 
 #canvas {

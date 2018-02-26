@@ -1,11 +1,21 @@
 ﻿(function () {
     var httpRequest,
-        apiKey = '064fa487e5692b71cd7d4bd13fc74a30',
         baseURL = "http://localhost:51912",
         method = {
             post: 'POST',
             get: 'GET'
-        };
+        },
+        currentQuestion = {},
+        correctAnswer = "",
+        btnSpin = document.getElementById("btn-spin"),
+        uiQuestion = document.getElementById("question-area"),
+        displayCategory = document.getElementById("category"),
+        displayQuestion = document.getElementById("question"),
+        answerList = document.getElementById("answers"),
+        displayAnswer1 = document.getElementById("answer-option-0"),
+        displayAnswer2 = document.getElementById("answer-option-1"),
+        displayAnswer3 = document.getElementById("answer-option-2"),
+        displayAnswer4 = document.getElementById("answer-option-3");
 
     var theWheel = new Winwheel({
         'outerRadius': 220,        // Set outer radius so wheel fits inside the background.
@@ -34,10 +44,30 @@
         }
     });
 
-    var btnSpin = document.getElementById("btn-spin");
 
+    // Wired up event listeners
     btnSpin.addEventListener("click", function () {
         startSpin();
+    });
+    displayAnswer1.addEventListener("click", function () {
+        console.log('Answer 1 clicked');//
+        checkIfCorrect(this.textContent);
+    });
+    displayAnswer2.addEventListener("click", function () {
+        console.log('Answer 1 clicked');//
+        checkIfCorrect(this.textContent);
+    });
+    displayAnswer3.addEventListener("click", function () {
+        console.log('Answer 1 clicked');//
+        checkIfCorrect(this.textContent);
+    });
+    displayAnswer4.addEventListener("click", function () {
+        console.log('Answer 1 clicked');//
+        checkIfCorrect(this.textContent);
+    });
+    displayCategory.addEventListener("click", function () {
+        console.log('Answer 1 clicked');//
+        checkIfCorrect(this.textContent);
     });
 
     var sampleData = [
@@ -157,14 +187,11 @@
     // Called when the spin animation has finished.
     function getQuestionByCategory(indicatedSegment) {
         if (indicatedSegment.text == 'Award') {
-            // code to select category to win
+            // code to select category for award question
         }
-        var output = document.getElementById("spin-result");
-        output.innerHTML = "<h2>" + indicatedSegment.text + "!</h2>";
-        var questions = sampleData;
-        console.log(questions);
-        //getQuestions('GET', baseURL + '/api/default');
-        //getQuestions('GET', baseURL + '/api/list');
+        //getQuestions('GET', baseURL + '/api/questions/' + indicatedSegment);// In-memory controller (DefaultController.cs)
+        //getQuestions('GET', baseURL + '/api/sqldata/' + indicatedSegment);// SQL controller (ApiController.cs)
+        renderQuestion(sampleData);// Just for testing until getQuestions query issue is resolved.
         resetWheel();
     }
 
@@ -174,16 +201,15 @@
             console.log('ERROR getting questions: Cannot create an XMLHTTP instance.');
             return false;
         }
-        console.log(method + " " + uri);
         httpRequest.open(method, uri);
         httpRequest.onreadystatechange = function () {
             if (httpRequest.readyState === XMLHttpRequest.DONE) {
                 if (httpRequest.status === 200) {
                     httpRequest.onload = function () {
-                        var details = JSON.parse(httpRequest.responseText);
-                        //renderDetails(details);
-                        console.log("List of Questions:");
-                        console.log(details);
+                        var data = JSON.parse(httpRequest.responseText);
+                        renderQuestion(data);
+                        console.log("List of Questions:");//
+                        console.log(data);//
                     }
                 } else {
                     console.log('[getQuestions] There was a problem with the request.');
@@ -191,5 +217,39 @@
             }
         };
         httpRequest.send();
+    }
+
+    function renderQuestion(jsonData) {
+        var questions = jsonData;
+        console.log(questions);//
+        var count = questions.length;
+        var question = questions[random(0, (count - 1))];
+        currentQuestion = question;
+        console.log(question.id - 1);//
+        console.log(question);//
+        uiQuestion.style.display = "block";
+        displayCategory.innerText = question.category + "!";
+        displayQuestion.innerText = question.question;
+        answerList.innerHTML = "";
+        for (var i = 0; i < question.answers.length; i++){
+            answerList.innerHTML += '<p id="answer-option-' + i + '" class="answer-option">' + question.answers[i].answerOpt + '</p>';
+            if (question.answers[i].isCorrect == true){
+                correctAnswer = question.answers[i].answerOpt;
+            }
+        }
+        console.log(correctAnswer);//
+    }
+
+    function checkIfCorrect(selectedAnswer) {
+        if (selectedAnswer === correctAnswer) {
+            alert("Wow! That's Correct. I'm shocked you got that right!");
+        } else {
+            alert("Wrong Answer, Stupid!");
+        }
+    }
+
+    // Generate a random number
+    function random(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
 })();

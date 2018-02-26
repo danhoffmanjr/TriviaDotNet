@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace NotTriviaCrack.Controllers
 {
     [Produces("application/json")]
-    [Route("api/list")]
+    [Route("api/sqlData")]
     public class ApiController : Controller
     {
         private readonly ITriviaRepository _triviaRepository;
@@ -40,17 +40,16 @@ namespace NotTriviaCrack.Controllers
         //    return new ObjectResult(item);
         //}
 
-        // GET: api?category={category}
-        //[HttpGet("{category}")]
-        //public IActionResult GetCategory(string category)
-        //{
-        //    var item = _triviaRepository.ListByCategory(category);
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return new ObjectResult(item);
-        //}
+        [HttpGet("{category}")]
+        public IActionResult GetCategory(string category)
+        {
+            var item = _triviaRepository.ListByCategory(category);
+            if (item.Count() == 0)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(item);
+        }
 
         // GET: api/Api/5
         // [HttpGet("{id}", Name = "Get")]
