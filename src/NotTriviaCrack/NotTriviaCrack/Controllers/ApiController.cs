@@ -26,7 +26,7 @@ namespace NotTriviaCrack.Controllers
         [HttpGet]
         public List<TriviaQuestion> GetAll()
         {
-            return _triviaRepository.ListAllQuestions();
+            return _triviaRepository.ListAll();
         }
 
         // GET: api/sqlData/questions/category

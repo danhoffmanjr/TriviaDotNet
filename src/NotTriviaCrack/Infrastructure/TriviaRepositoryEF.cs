@@ -50,7 +50,7 @@ namespace Infrastructure
         public List<TriviaQuestion> ListByCategory(string category)
         {
             return _dbContext.Questions
-                //.Include(q => q.Answers)
+                .Include(q => q.Answers)
                 .Where(q => q.Category == category)
                 .ToList();
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace AppCore.Entites
 {
@@ -12,6 +13,7 @@ namespace AppCore.Entites
         public DateTime DateUpdate { get; set; }
         // Navigation properties
         public int QuestionId { get; set; }
+        [JsonIgnore]
         public TriviaQuestion Question { get; set; }
     }
 }
