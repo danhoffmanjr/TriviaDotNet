@@ -6,6 +6,7 @@ using System.Text;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Infrastructure
 {
@@ -20,18 +21,44 @@ namespace Infrastructure
 
         public List<TriviaQuestion> ListAll()
         {
-            return _dbContext.Questions
+            List<TriviaQuestion> result = _dbContext.Questions
                  .Include(q => q.Answers)
                  .OrderBy(q => q.Category)
                  .ToList();
+
+            return result;
         }
+
+        public List<TriviaQuestion> ListAllQuestions()
+        {
+            List<TriviaQuestion> result = _dbContext.Questions.ToList();
+            return result;
+        }
+
+        //public List<TriviaQuestion> ListAllJson()
+        //{
+        //    List<TriviaQuestion> result = _dbContext.Questions
+        //         .Include(q => q.Answers)
+        //         .OrderBy(q => q.Category)
+        //         .ToList();
+
+        //    var rawList = JsonConvert.DeserializeObject<List<TriviaQuestion>>(result.ToString());
+
+        //    return rawList;
+        //}
 
         public List<TriviaQuestion> ListByCategory(string category)
         {
             return _dbContext.Questions
-                .Include(q => q.Answers)
+                //.Include(q => q.Answers)
                 .Where(q => q.Category == category)
                 .ToList();
+        }
+
+        public List<TriviaAnswer> GetAnswers(int id)
+        {
+           List<TriviaAnswer> answers = _dbContext.Answers.Where(q => q.QuestionId == id).ToList();
+           return answers;
         }
 
         public void Add(TriviaQuestion newQuestion)

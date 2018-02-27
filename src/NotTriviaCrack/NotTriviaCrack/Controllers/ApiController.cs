@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace NotTriviaCrack.Controllers
 {
     [Produces("application/json")]
-    [Route("api/sqlData")]
+    [Route("api/sqlData/questions")]
     public class ApiController : Controller
     {
         private readonly ITriviaRepository _triviaRepository;
@@ -22,26 +22,16 @@ namespace NotTriviaCrack.Controllers
             _triviaRepository = triviaRepository;
         }
 
-        // GET: api/list
+        // GET: api/sqlData/questions
         [HttpGet]
-        public IEnumerable<TriviaQuestion> GetAll()
+        public List<TriviaQuestion> GetAll()
         {
-            return _triviaRepository.ListAll();
+            return _triviaRepository.ListAllQuestions();
         }
 
-        //[HttpGet]
-        //public IActionResult GetAll()
-        //{
-        //    var item = _triviaRepository.ListAll();
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return new ObjectResult(item);
-        //}
-
+        // GET: api/sqlData/questions/category
         [HttpGet("{category}")]
-        public IActionResult GetCategory(string category)
+        public IActionResult GetByCategory(string category)
         {
             var item = _triviaRepository.ListByCategory(category);
             if (item.Count() == 0)
@@ -51,12 +41,17 @@ namespace NotTriviaCrack.Controllers
             return new ObjectResult(item);
         }
 
-        // GET: api/Api/5
-        // [HttpGet("{id}", Name = "Get")]
-        // public string Get(int id)
-        // {
-        //     return "value";
-        // }
+        //GET: api/sqldata/questions/1/answers
+        [HttpGet("{questionId}/Answers")]
+        public IActionResult GetAnswers(int questionId)
+        {
+            var item = _triviaRepository.GetAnswers(questionId);
+            if (item.Count() == 0)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(item);
+        }
 
         // POST: api/Api
         [HttpPost]

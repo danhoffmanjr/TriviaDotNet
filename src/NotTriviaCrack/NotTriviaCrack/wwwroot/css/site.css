@@ -183,6 +183,13 @@ h3.question {
     font-size: 2rem;
     border-radius: 8px;
     pointer-events: all;
+    box-shadow: -5px 5px 15px 0px rgba(0,0,0,0.3);
+}
+
+.question-area .answer-option:active {
+    position: relative;
+    top: 2px;
+    left: -2px;
 }
 
 .question-area .answer-option:hover {
@@ -193,16 +200,23 @@ h3.question {
 
 .question-area .correct, .question-area .correct:hover {
     background-color: green;
+    border: 1px solid darkgreen;
     color: #fff;
 }
 
 .question-area .incorrect, .question-area .incorrect:hover {
     background-color: red;
+    border: 1px solid darkred;
     color: #fff;
+}
+
+.btn-continue {
+    pointer-events: all;
 }
 
 .answer-response {
     display: none;
+    text-align: center;
 }
 
 h2.display-answer-response {
@@ -210,6 +224,50 @@ h2.display-answer-response {
     text-align: center;
     font-size: 4rem;
 }
+
+.game-tracker {
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+
+}
+
+.cat-tracker {
+    margin: 10px 0 0 0;
+    padding: 5px;
+    background: rgba(255,255,255,.3);
+    border-radius: 8px;
+}
+
+.cat-tracker div {
+    padding: 2px;
+}
+
+.cat-tracker h3 {
+    margin: 0;
+}
+
+.art {
+    color: #ee2a36;
+}
+.entertainment {
+    color: #e85aa2;
+}
+.geography {
+    color: #2774ba;
+}
+.history {
+    color: #f7e042;
+}
+.science {
+    color: #44b968;
+}
+.sports {
+    color: #f8951e;
+}
+
+
+
 
 .spin-icon {
     width: 102px;

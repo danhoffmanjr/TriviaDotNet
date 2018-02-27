@@ -8,6 +8,8 @@
         currentQuestion = {},
         correctAnswer = "",
         btnSpin = document.getElementById("btn-spin"),
+        uiStart = document.getElementById("start-screen"),
+        uiReady = document.getElementById("ready-text"),
         uiQuestion = document.getElementById("question-area"),
         displayCategory = document.getElementById("category"),
         displayQuestion = document.getElementById("question"),
@@ -21,7 +23,7 @@
 
     var theWheel = new Winwheel({
         'outerRadius': 220,        // Set outer radius so wheel fits inside the background.
-        'innerRadius': 44,         // Make wheel hollow so segments dont go all way to center.
+        'innerRadius': 30,         // Make wheel hollow so segments dont go all way to center.
         'textFontSize': 18,         // Set default font size for the segments.
         'textOrientation': 'horizontal', // Make text vertial so goes down from the outside of wheel.
         'textAlignment': 'center',    // Align text to outside of wheel.
@@ -31,7 +33,7 @@
         [
             { 'fillStyle': '#ee2a36', 'text': 'Art' },
             { 'fillStyle': '#e85aa2', 'text': 'Entertainment' },
-            { 'fillStyle': '#864fa0', 'text': 'Award' },
+            { 'fillStyle': '#864fa0', 'text': 'Choose Flag' },
             { 'fillStyle': '#2774ba', 'text': 'Geography' },
             { 'fillStyle': '#44b968', 'text': 'Science' },
             { 'fillStyle': '#f7e042', 'text': 'History' },
@@ -50,6 +52,10 @@
     // Wired up event listeners
     btnSpin.addEventListener("click", function () {
         startSpin();
+    });
+
+    btnContinue.addEventListener("click", function () {
+        continueGame();
     });
 
     var sampleData = [
@@ -168,7 +174,7 @@
 
     // Called when the spin animation has finished.
     function getQuestionByCategory(indicatedSegment) {
-        if (indicatedSegment.text == 'Award') {
+        if (indicatedSegment.text == "Choose Flag") {
             // code to select category for award question
         }
         //getQuestions('GET', baseURL + '/api/questions/' + indicatedSegment);// In-memory controller (DefaultController.cs)
@@ -208,6 +214,7 @@
         currentQuestion = question;
         console.log(question.id - 1);//
         console.log(question);//
+        uiStart.style.display = "none";
         answerResponse.style.display = "none";
         uiQuestion.style.display = "block";
         displayCategory.innerText = question.category + "!";
@@ -230,12 +237,21 @@
             selectedId.classList.add("correct");
             answerResponse.style.display = "block";
             displayAnswerResponse.innerText = "Correct!";
-            resetWheel();
             return;
         }
         selectedId.classList.add("incorrect");
         answerResponse.style.display = "block";
         displayAnswerResponse.innerText = "Sorry, that's incorrect";
+    }
+
+    function updateTracker(category, isCorrect) {
+
+    }
+
+    function continueGame() {
+        uiQuestion.style.display = "none";
+        uiStart.style.display = "block";
+        uiReady.innerText = "Ready to spin!";
         resetWheel();
     }
 

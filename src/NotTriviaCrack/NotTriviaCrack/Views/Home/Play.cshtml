@@ -5,23 +5,115 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
     <script src="~/js/play.js"></script>
 }
-<main class="game-ui">
-    <section id="spinner" class="spinner">
-        <button id="btn-spin" class="spin-icon">SPIN</button>
-        <canvas id='canvas' width='440' height='440'>
-            Canvas not supported, use another browser.
-        </canvas>
-        <section id="game-tracker">
-            scores here...
+    <main class="game-ui">
+        <section id="spinner" class="spinner">
+            <button id="btn-spin" class="spin-icon">SPIN</button>
+            <canvas id='canvas' width='440' height='440'>
+                Canvas not supported, use another browser.
+            </canvas>
+            <section id="game-tracker" class="game-tracker">
+                <div id="tracker-art" class="cat-tracker">
+                    <div>
+                        <h3><i class="fas fa-flag art"></i></h3>
+                    </div>
+                    <div>
+                        <i class="fas fa-check-square"></i>
+                        <i class="fas fa-check-square"></i>
+                        <i class="fas fa-check-square"></i>
+                    </div>
+                    <div>
+                        <i class="fas fa-lemon"></i>
+                        <i class="far fa-lemon"></i>
+                        <i class="far fa-lemon"></i>
+                    </div>
+                </div>
+                <div id="tracker-entertainment" class="cat-tracker">
+                    <div>
+                        <h3><i class="far fa-flag entertainment"></i></h3>
+                    </div>
+                    <div>
+                        <i class="far fa-check-square"></i>
+                        <i class="far fa-check-square"></i>
+                        <i class="far fa-check-square"></i>
+                    </div>
+                    <div>
+                        <i class="far fa-lemon"></i>
+                        <i class="far fa-lemon"></i>
+                        <i class="far fa-lemon"></i>
+                    </div>
+                </div>
+                <div id="tracker-geography" class="cat-tracker">
+                    <div>
+                        <h3><i class="far fa-flag geography"></i></h3>
+                    </div>
+                    <div>
+                        <i class="far fa-check-square"></i>
+                        <i class="far fa-check-square"></i>
+                        <i class="far fa-check-square"></i>
+                    </div>
+                    <div>
+                        <i class="far fa-lemon"></i>
+                        <i class="far fa-lemon"></i>
+                        <i class="far fa-lemon"></i>
+                    </div>
+                </div>
+                <div id="tracker-history" class="cat-tracker">
+                    <div>
+                        <h3><i class="far fa-flag history"></i></h3>
+                    </div>
+                    <div>
+                        <i class="far fa-check-square"></i>
+                        <i class="far fa-check-square"></i>
+                        <i class="far fa-check-square"></i>
+                    </div>
+                    <div>
+                        <i class="far fa-lemon"></i>
+                        <i class="far fa-lemon"></i>
+                        <i class="far fa-lemon"></i>
+                    </div>
+                </div>
+                <div id="tracker-science" class="cat-tracker">
+                    <div>
+                        <h3><i class="far fa-flag science"></i></h3>
+                    </div>
+                    <div>
+                        <i class="far fa-check-square"></i>
+                        <i class="far fa-check-square"></i>
+                        <i class="far fa-check-square"></i>
+                    </div>
+                    <div>
+                        <i class="far fa-lemon"></i>
+                        <i class="far fa-lemon"></i>
+                        <i class="far fa-lemon"></i>
+                    </div>
+                </div>
+                <div id="tracker-sports" class="cat-tracker">
+                    <div>
+                        <h3><i class="far fa-flag sports"></i></h3>
+                    </div>
+                    <div>
+                        <i class="far fa-check-square"></i>
+                        <i class="far fa-check-square"></i>
+                        <i class="far fa-check-square"></i>
+                    </div>
+                    <div>
+                        <i class="far fa-lemon"></i>
+                        <i class="far fa-lemon"></i>
+                        <i class="far fa-lemon"></i>
+                    </div>
+                </div>
+            </section>
         </section>
-    </section>
-    <section id="question-area" class="question-area">
-        <h2 id="category" class="category-header">Category Header</h2>
-        <h3 id="question" class="question">Question here...</h3>
-        <div id="answers" class="answers"></div>
-        <div id="answer-response" class="answer-response">
-            <h2 id="display-answer-response" class="display-answer-response">Correct!</h2>
-            <button id="btn-continue" class="btn-continue">Continue</button>
-        </div>
-    </section>
-</main>
+        <section id="start-screen" class="start-screen">
+            <h2 id="ready-text" class="ready-text">Start Game<br />Spin the wheel to begin!</h2>
+        </section>
+        <section id="question-area" class="question-area">
+            <h2 id="category" class="category-header">Category Header</h2>
+            <h3 id="question" class="question">Question here...</h3>
+            <div id="answers" class="answers"></div>
+            <div id="answer-response" class="answer-response">
+                <h2 id="display-answer-response" class="display-answer-response">Correct!</h2>
+                <button id="btn-continue" class="btn-continue">Continue</button>
+            </div>
+        </section>
+    </main>

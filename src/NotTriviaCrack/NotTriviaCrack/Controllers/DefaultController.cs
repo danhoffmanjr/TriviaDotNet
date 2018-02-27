@@ -102,7 +102,7 @@ namespace NotTriviaCrack.Controllers
                     _context.Answers.Add(new TriviaAnswer
                         {
                             // Nested list breaks the httpXMLRequest
-                            QuestionId = 1, // this Id can't match a question Id or Connect Error occurs.
+                            QuestionId = 3, // this Id can't match a question Id or Connect Error occurs.
                             AnswerOpt = "Othello",
                             IsCorrect = false
                         }
@@ -111,7 +111,7 @@ namespace NotTriviaCrack.Controllers
                     _context.Answers.Add(new TriviaAnswer
                         {
                             // Nested list breaks the httpXMLRequest
-                            QuestionId = 1, // this Id can't match a question Id or Connect Error occurs.
+                            QuestionId = 3, // this Id can't match a question Id or Connect Error occurs.
                             AnswerOpt = "Romeo and Juliet",
                             IsCorrect = true
                         }
