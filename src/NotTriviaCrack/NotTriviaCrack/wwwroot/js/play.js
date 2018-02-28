@@ -5,12 +5,46 @@
             post: 'POST',
             get: 'GET'
         },
+        tracker = {
+            art: {
+                isCompleteFlag: false,
+                stars: 0,
+                lemons: 0
+            },
+            entertainment: {
+                isCompleteFlag: false,
+                stars: 0,
+                lemons: 0
+            },
+            geography: {
+                isCompleteFlag: false,
+                stars: 0,
+                lemons: 0
+            },
+            history: {
+                isCompleteFlag: false,
+                stars: 0,
+                lemons: 0
+            },
+            science: {
+                isCompleteFlag: false,
+                stars: 0,
+                lemons: 0
+            },
+            sports: {
+                isCompleteFlag: false,
+                stars: 0,
+                lemons: 0
+            }
+        },
         currentQuestion = {},
         correctAnswer = "",
         btnSpin = document.getElementById("btn-spin"),
         uiStart = document.getElementById("start-screen"),
         uiReady = document.getElementById("ready-text"),
+        uiPlayersChoice = document.getElementById("players-choice"),
         uiQuestion = document.getElementById("question-area"),
+        uiTracker = document.getElementById("game-tracker"),
         displayCategory = document.getElementById("category"),
         displayQuestion = document.getElementById("question"),
         displayAnswers = document.getElementById("answers"),
@@ -19,6 +53,12 @@
         answer = document.getElementById("answers").addEventListener("click", checkIfCorrect),
         answerResponse = document.getElementById("answer-response"),
         displayAnswerResponse = document.getElementById("display-answer-response"),
+        btnArt = document.getElementById("btn-art");
+        btnEntertainment = document.getElementById("btn-entertainment");
+        btnGeography = document.getElementById("btn-geography");
+        btnHistory = document.getElementById("btn-history");
+        btnScience = document.getElementById("btn-science");
+        btnSports = document.getElementById("btn-sports");
         btnContinue = document.getElementById("btn-continue");
 
     var theWheel = new Winwheel({
@@ -53,9 +93,26 @@
     btnSpin.addEventListener("click", function () {
         startSpin();
     });
-
     btnContinue.addEventListener("click", function () {
         continueGame();
+    });
+    btnArt.addEventListener("click", function () {
+        getQuestions('GET', baseURL + '/api/sqldata/questions/Art');
+    });
+    btnEntertainment.addEventListener("click", function () {
+        getQuestions('GET', baseURL + '/api/sqldata/questions/Entertainment');
+    });
+    btnGeography.addEventListener("click", function () {
+        getQuestions('GET', baseURL + '/api/sqldata/questions/Geography');
+    });
+    btnHistory.addEventListener("click", function () {
+        getQuestions('GET', baseURL + '/api/sqldata/questions/History');
+    });
+    btnScience.addEventListener("click", function () {
+        getQuestions('GET', baseURL + '/api/sqldata/questions/Science');
+    });
+    btnSports.addEventListener("click", function () {
+        getQuestions('GET', baseURL + '/api/sqldata/questions/Sports');
     });
 
     var sampleData = [
@@ -175,11 +232,12 @@
     // Called when the spin animation has finished.
     function getQuestionByCategory(indicatedSegment) {
         if (indicatedSegment.text == "Choose Flag") {
-            // code to select category for award question
+            uiPlayersChoice.style.display = "Block";
+            uiStart.style.display = "none";
+            resetWheel();
+            return;
         }
-        //getQuestions('GET', baseURL + '/api/questions/' + indicatedSegment);// In-memory controller (DefaultController.cs)
-        //getQuestions('GET', baseURL + '/api/sqldata/' + indicatedSegment);// SQL controller (ApiController.cs)
-        renderQuestion(sampleData);// Just for testing until getQuestions query issue is resolved.
+        getQuestions('GET', baseURL + '/api/sqldata/questions/' + indicatedSegment.text);// SQL controller (ApiController.cs)
     }
 
     function getQuestions(method, uri) {
@@ -208,13 +266,12 @@
 
     function renderQuestion(jsonData) {
         var questions = jsonData;
-        console.log(questions);//
         var count = questions.length;
         var question = questions[random(0, (count - 1))];
         currentQuestion = question;
-        console.log(question.id - 1);//
-        console.log(question);//
+        console.log(currentQuestion);//
         uiStart.style.display = "none";
+        uiPlayersChoice.style.display = "none";
         answerResponse.style.display = "none";
         uiQuestion.style.display = "block";
         displayCategory.innerText = question.category + "!";
@@ -237,21 +294,101 @@
             selectedId.classList.add("correct");
             answerResponse.style.display = "block";
             displayAnswerResponse.innerText = "Correct!";
+            switch (currentQuestion.category) {
+                case "Art":
+                    tracker.art.stars++;
+                    break;
+                case "Entertainment":
+                    tracker.entertainment.stars++;
+                    break;
+                case "Geography":
+                    tracker.geography.stars++;
+                    break;
+                case "History":
+                    tracker.history.stars++;
+                    break;
+                case "Science":
+                    tracker.science.stars++;
+                    break;
+                case "Sports":
+                    tracker.sports.stars++;
+                    break;
+            }
+            console.log(tracker);
+            renderTracker(tracker);
             return;
         }
         selectedId.classList.add("incorrect");
         answerResponse.style.display = "block";
         displayAnswerResponse.innerText = "Sorry, that's incorrect";
+        switch (currentQuestion.category) {
+            case "Art":
+                tracker.art.lemons++;
+                break;
+            case "Entertainment":
+                tracker.entertainment.lemons++;
+                break;
+            case "Geography":
+                tracker.geography.lemons++;
+                break;
+            case "History":
+                tracker.history.lemons++;
+                break;
+            case "Science":
+                tracker.science.lemons++;
+                break;
+            case "Sports":
+                tracker.sports.lemons++;
+                break;
+        }
+        console.log(tracker);
+        renderTracker(tracker);
     }
 
-    function updateTracker(category, isCorrect) {
-
+    function renderTracker(trackerObj) {
+        var htmlStr = "";
+        uiTracker.innerHTML = "";
+        for (var category in trackerObj) {
+            // create category DIV start
+            htmlStr += '<div id="tracker-' + category + '" class="cat-tracker">';
+            // create isComplete flag DIV start/end
+            if (trackerObj[category].stars < 3) {
+                htmlStr += '<div><h3><i class="far fa-flag ' + category + '"></i></h3></div>';
+            } else {
+                htmlStr += '<div><h3><i class="fas fa-flag ' + category + '"></i></h3></div>';
+            }
+            // create stars DIV start
+            htmlStr += '<div>';
+            // create stars I start/end
+            for (var i = 1; i <= trackerObj[category].stars; i++) {
+                htmlStr += '<i class="fas fa-star"></i> ';
+            }
+            for (var i = 1; i <= (3 - trackerObj[category].stars); i++) {
+                htmlStr += '<i class="far fa-star" ></i > ';
+            }
+            // create stars DIV end
+            htmlStr += '</div>';
+            // create lemons DIV start
+            htmlStr += '<div>';
+            // create lemons I start/end
+            for (var i = 1; i <= trackerObj[category].lemons; i++) {
+                htmlStr += '<i class="fas fa-lemon"></i> ';
+            }
+            for (var i = 1; i <= (3 - trackerObj[category].lemons); i++) {
+                htmlStr += '<i class="far fa-lemon"></i> ';
+            }
+            // create lemons DIV end
+            htmlStr += '</div>';
+            // create category DIV end
+            htmlStr += '</div>';
+        }  
+        uiTracker.innerHTML = htmlStr;
     }
 
     function continueGame() {
         uiQuestion.style.display = "none";
         uiStart.style.display = "block";
-        uiReady.innerText = "Ready to spin!";
+        uiReady.innerHTML = '<i class="fas fa-arrow-circle-left"></i> Ready to spin!';
         resetWheel();
     }
 

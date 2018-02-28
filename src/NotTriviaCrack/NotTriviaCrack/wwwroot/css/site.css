@@ -144,11 +144,72 @@ body {
     border-radius: 30px;
     min-height: 80vh;
     display: flex;
-    justify-content: flex-start;
+    justify-content:center;
 }
 
 .spinner {
     flex-basis: 480px;
+}
+
+.players-choice {
+    flex: 1 0 0;
+    display: none;
+}
+
+.players-choice h2 {
+    margin-top: 15%;
+    font-family: 'Luckiest Guy';
+    text-align: center;
+    font-size: 4rem;
+    color: #864fa0;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+}
+
+.players-choice button {
+    display: block;
+    margin: 10px auto;
+    padding: 5px 20px;
+    width: 200px;
+    font-family: 'Patua One';
+    font-size: 2rem;
+    border-radius: 8px;
+}
+
+.players-choice button.btn-choose-art {
+    background-color: #ee2a36;
+}
+
+.players-choice button.btn-choose-entertainment {
+    background-color: #e85aa2;
+}
+
+.players-choice button.btn-choose-geography {
+    background-color: #2774ba;
+}
+
+.players-choice button.btn-choose-history {
+    background-color: #f7e042;
+}
+
+.players-choice button.btn-choose-science {
+    background-color: #44b968;
+}
+
+.players-choice button.btn-choose-sports {
+    background-color: #f8951e;
+}
+
+.start-screen {
+    flex: 1 0 0;
+}
+
+.start-screen h2 {
+    margin-top: 35%;
+    font-family: 'Luckiest Guy';
+    text-align: center;
+    font-size: 4rem;
+    color: #864fa0;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
 }
 
 .question-area {
@@ -267,8 +328,6 @@ h2.display-answer-response {
 }
 
 
-
-
 .spin-icon {
     width: 102px;
     height: 120px;
@@ -282,10 +341,6 @@ h2.display-answer-response {
     text-align: center;
     font-size: 3rem;
     padding-top: 17px;
-}
-
-.spin-icon:hover {
-    color: green;
 }
 
 #canvas {
