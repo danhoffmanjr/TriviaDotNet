@@ -296,25 +296,36 @@
             displayAnswerResponse.innerText = "Correct!";
             switch (currentQuestion.category) {
                 case "Art":
-                    tracker.art.stars++;
+                    if (tracker.art.stars != 3){
+                        tracker.art.stars++;
+                    }
                     break;
                 case "Entertainment":
-                    tracker.entertainment.stars++;
+                    if (tracker.entertainment.stars != 3) {
+                        tracker.entertainment.stars++;
+                    }
                     break;
                 case "Geography":
-                    tracker.geography.stars++;
+                    if (tracker.geography.stars != 3) {
+                        tracker.geography.stars++;
+                    }
                     break;
                 case "History":
-                    tracker.history.stars++;
+                    if (tracker.history.stars != 3) {
+                        tracker.history.stars++;
+                    }
                     break;
                 case "Science":
-                    tracker.science.stars++;
+                    if (tracker.science.stars != 3) {
+                        tracker.science.stars++;
+                    }
                     break;
                 case "Sports":
-                    tracker.sports.stars++;
+                    if (tracker.sports.stars != 3) {
+                        tracker.sports.stars++;
+                    } 
                     break;
             }
-            console.log(tracker);
             renderTracker(tracker);
             return;
         }
@@ -346,6 +357,7 @@
     }
 
     function renderTracker(trackerObj) {
+        // Possibly add Duck typing here to validate the object being passed in
         var htmlStr = "";
         uiTracker.innerHTML = "";
         for (var category in trackerObj) {
@@ -383,6 +395,7 @@
             htmlStr += '</div>';
         }  
         uiTracker.innerHTML = htmlStr;
+        isGameOver(tracker);
     }
 
     function continueGame() {
@@ -390,6 +403,24 @@
         uiStart.style.display = "block";
         uiReady.innerHTML = '<i class="fas fa-arrow-circle-left"></i> Ready to spin!';
         resetWheel();
+    }
+
+    function isGameOver(trackerObj) {
+        for (var category in trackerObj) {
+            if (trackerObj[category].lemons == 3){
+                alert("Game Over. You Lost!");
+                return location.reload();
+            }
+        }
+        if (trackerObj.art.stars == 3 &&
+            trackerObj.entertainment.stars == 3 &&
+            trackerObj.geography.stars == 3 &&
+            trackerObj.history.stars == 3 && 
+            trackerObj.science.stars == 3 && 
+            trackerObj.sports.stars == 3) {
+            alert("YOU WIN!!");
+            return location.reload();
+        }
     }
 
     // Generate a random number
